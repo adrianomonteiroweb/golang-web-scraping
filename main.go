@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"net/http"
+	"os"
 
 	"github.com/PuerkitoBio/goquery"
 )
@@ -11,6 +12,16 @@ func errCheck(err error) {
 	if err != nil {
 		fmt.Println(err)
 	}
+}
+
+func writeFile(data, filename string) {
+	file, err := os.Create(filename)
+
+	defer file.Close()
+
+	errCheck(err)
+
+	file.WriteString(data)
 }
 
 func main() {
@@ -34,5 +45,5 @@ func main() {
 
 	errCheck(err)
 
-	fmt.Println(river)
+	writeFile(river, "index.html")
 }
